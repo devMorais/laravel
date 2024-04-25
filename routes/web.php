@@ -41,7 +41,18 @@ Route::get('contact', function(){
 
  /** Route Parameters */
 
- Route::get('Pessoa', function(){
-    return 'Eu vou vencer';
+  route::get('pessoa/{id?}', function($id = null){
+    return [
+        'id' => $id,
+        'nome' => 'fernando morais'
+    ];
 });
+
+//  Route::get('pessoa/{id}/post/{post_id}', function($id, $postId){
+//     return [
+//         'id' => $id,
+//         'Nome' => 'Fernando Morais',
+//         'post_id' => $postId
+//     ];
+// });
 

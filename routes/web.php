@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -7,29 +9,32 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| Aqui é onde você pode registrar as rotas web para sua aplicação.
+| Essas rotas são carregadas pelo RouteServiceProvider e todas elas serão
+| atribuídas ao grupo de middleware "web". Faça algo ótimo!
 |
-*/
+ */
 
+// Rota para a página inicial
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('about', function(){
+// Rota para a página "about"
+Route::get('about', function () {
     return view('info.about');
 });
 
-Route::get('contact', function(){
+// Rota para a página de contato, retornando informações como JSON
+Route::get('contact', function () {
     return [
         'Nome' => 'Fernando Morais',
         'Idade' => '31',
-        'Cidade' => 'Brasília'
+        'Cidade' => 'Brasília',
     ];
 });
 
-/** Route methods */
+/** Métodos de Rota */
 
 /**
  * 1. GET
@@ -39,16 +44,18 @@ Route::get('contact', function(){
  * 5. DELETE
  */
 
- /** Route Parameters */
+/** Parâmetros de Rota */
 
-  route::get('pessoa/{id?}', function($id = null){
+// Rota com parâmetro opcional
+route::get('pessoa/{id?}', function ($id = null) {
     return [
         'id' => $id,
-        'nome' => 'fernando morais'
+        'nome' => 'fernando morais',
     ];
 });
 
-//  Route::get('pessoa/{id}/post/{post_id}', function($id, $postId){
+// Rota com múltiplos parâmetros
+// route::get('pessoa/{id}/post/{post_id}', function($id, $postId){
 //     return [
 //         'id' => $id,
 //         'Nome' => 'Fernando Morais',
@@ -56,28 +63,39 @@ Route::get('contact', function(){
 //     ];
 // });
 
+// Rota simples para mostrar uma mensagem
 Route::get('animais', function () {
     return 'Cachorro e gato';
 })->name('teste');
 
 /** GRUPOS DE ROTAS */
 
-Route::group(['as' => 'animais.', 'prefix' => 'animais'], function(){
-    Route::get('cachorro', function(){
+// Grupo de rotas para animais
+Route::group(['as' => 'animais.', 'prefix' => 'animais'], function () {
+    // Rota para cachorro
+    Route::get('cachorro', function () {
         return 'Woof!';
     })->name('cachorro');
-    Route::get('gato', function(){
+
+    // Rota para gato
+    Route::get('gato', function () {
         return 'Meow!';
     })->name('gato');
-    Route::get('macaco', function(){
+
+    // Rota para macaco
+    Route::get('macaco', function () {
         return 'Ho ho!';
     })->name('macaco');
 });
 
-Route::get('blade-test', function(){
+// Rota para testar a view blade-test
+Route::get('blade-test', function () {
     return view('blade-test');
 })->name('blade-test');
 
-Route::get('contact', function(){
-    return view('contact');
-})->name('contact');
+// Rota para a página de contato com controlador
+Route::get('contact', [TestController::class, 'contact'])->name('contact');
+Route::get('contact/store', [TestController::class, 'store'])->name('contact.store');
+
+// Rota para a página de contato com controlador de recursos
+Route::resource('blog', BlogController::class);

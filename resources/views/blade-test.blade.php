@@ -29,17 +29,14 @@
     @endfor
 </ul>
 
-@empty()
+{{-- @empty()
 
-@endempty
+@endempty --}}
 
-@include()
-@isset()
+{{-- @include()
+@isset() --}}
 
-@endisset
-
-
-
+{{-- @endisset --}}
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
         Commodi soluta eius excepturi nesciunt perferendis optio nihil
         enim labore incidunt quo voluptatem quasi non, consequatur fugit vero?
